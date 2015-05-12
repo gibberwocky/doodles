@@ -1,0 +1,291 @@
+#!/bin/bash
+# IEKNGHER1ujm
+
+# SRS549635 (A. m. ligustica) 		[MSX]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152211/SRR1152211.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152212/SRR1152212.fastq.gz
+
+# SRS549667 (A. m. syriaca) 		[MSX]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152395/SRR1152395.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152396/SRR1152396.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152397/SRR1152397.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152398/SRR1152398.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152399/SRR1152399.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152400/SRR1152400.fastq.gz
+
+# SRS549687 (A. m. carnica) 		[MSX]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152523/SRR1152523.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152524/SRR1152524.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152525/SRR1152525.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152526/SRR1152526.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152527/SRR1152527.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152528/SRR1152528.fastq.gz
+
+# SRS549707 (A. mellifera -US) 		[MSx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152643/SRR1152643.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152644/SRR1152644.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152645/SRR1152645.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152646/SRR1152646.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152647/SRR1152647.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152648/SRR1152648.fastq.gz
+
+# SRS549778 (A. m. adansonii)		[MSX]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1153001/SRR1153001.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1153002/SRR1153002.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1153003/SRR1153003.fastq.gz
+
+# SRS549768 (A. m. capensis)		[MSX]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152971/SRR1152971.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152972/SRR1152972.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152973/SRR1152973.fastq.gz
+
+# SRS549763 (A. m. mellifera -SE)	[MSX]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152953/SRR1152953.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152954/SRR1152954.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152955/SRR1152955.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152956/SRR1152956.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152957/SRR1152957.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152958/SRR1152958.fastq.gz
+
+# SRS549718 (A. m. iberiensis)		[MSX]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152713/SRR1152713.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152714/SRR1152714.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152715/SRR1152715.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152716/SRR1152716.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152717/SRR1152717.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152718/SRR1152718.fastq.gz
+
+# SRS549717 (A. m. anatolica)		[MSX]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152707/SRR1152707.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152708/SRR1152708.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152709/SRR1152709.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152710/SRR1152710.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152711/SRR1152711.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152712/SRR1152712.fastq.gz
+
+# SRS549753 (A. mellifera -EU)		[MSX]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152893/SRR1152893.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152894/SRR1152894.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152895/SRR1152895.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152896/SRR1152896.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152897/SRR1152897.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152898/SRR1152898.fastq.gz
+
+
+# SRS549668 (A. m. mellifera)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152401/SRR1152401.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152402/SRR1152402.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152403/SRR1152403.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152404/SRR1152404.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152405/SRR1152405.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152406/SRR1152406.fastq.gz
+
+# SRS549666 (A. m. syriaca)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152389/SRR1152389.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152390/SRR1152390.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152391/SRR1152391.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152392/SRR1152392.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152393/SRR1152393.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152394/SRR1152394.fastq.gz
+
+# SRS549665 (A. m. syriaca)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152383/SRR1152383.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152384/SRR1152384.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152385/SRR1152385.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152386/SRR1152386.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152387/SRR1152387.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152388/SRR1152388.fastq.gz
+
+# SRS549716 (A. m. anatolica)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152701/SRR1152701.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152702/SRR1152702.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152703/SRR1152703.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152704/SRR1152704.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152705/SRR1152705.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152706/SRR1152706.fastq.gz
+
+# SRS549715 (A. m. anatolica)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152695/SRR1152695.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152696/SRR1152696.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152697/SRR1152697.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152698/SRR1152698.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152699/SRR1152699.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152700/SRR1152700.fastq.gz
+
+# SRS549719 (A. m. iberiensis)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152719/SRR1152719.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152720/SRR1152720.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152721/SRR1152721.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152722/SRR1152722.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152723/SRR1152723.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152724/SRR1152724.fastq.gz
+
+# SRS549714 (A. m. anatolica)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152689/SRR1152689.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152690/SRR1152690.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152691/SRR1152691.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152692/SRR1152692.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152693/SRR1152693.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152694/SRR1152694.fastq.gz
+
+# SRS549713 (A. m. anatolica)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152683/SRR1152683.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152684/SRR1152684.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152685/SRR1152685.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152686/SRR1152686.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152687/SRR1152687.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152688/SRR1152688.fastq.gz
+
+# SRS549663 (A. m. syriaca)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152371/SRR1152371.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152372/SRR1152372.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152373/SRR1152373.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152374/SRR1152374.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152375/SRR1152375.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152376/SRR1152376.fastq.gz
+
+# SRS549664 (A. m. syriaca)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152377/SRR1152377.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152378/SRR1152378.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152379/SRR1152379.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152380/SRR1152380.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152381/SRR1152381.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152382/SRR1152382.fastq.gz
+
+# SRS549635 (A. m. ligustica) 		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1151485/SRR1151485.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1151486/SRR1151486.fastq.gz
+
+# SRS549629 (A. m. ligustica) 		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152199/SRR1152199.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152200/SRR1152200.fastq.gz
+
+# SRS549630 (A. m. ligustica) 		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152201/SRR1152201.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152202/SRR1152202.fastq.gz
+
+# SRS549631 (A. m. ligustica) 		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152203/SRR1152203.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152204/SRR1152204.fastq.gz
+
+# SRS549632 (A. m. ligustica) 		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152205/SRR1152205.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152206/SRR1152206.fastq.gz
+
+# SRS549686 (A. m. carnica)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152517/SRR1152517.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152518/SRR1152518.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152519/SRR1152519.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152520/SRR1152520.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152521/SRR1152521.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152522/SRR1152522.fastq.gz
+
+# SRS549685 (A. m. carnica)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152511/SRR1152511.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152512/SRR1152512.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152513/SRR1152513.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152514/SRR1152514.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152515/SRR1152515.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152516/SRR1152516.fastq.gz
+
+# SRS549720 (A. m. iberiensis)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152725/SRR1152725.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152726/SRR1152726.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152727/SRR1152727.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152728/SRR1152728.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152729/SRR1152729.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152730/SRR1152730.fastq.gz
+
+# SRS549721 (A. m. iberiensis)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152731/SRR1152731.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152732/SRR1152732.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152733/SRR1152733.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152734/SRR1152734.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152735/SRR1152735.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152736/SRR1152736.fastq.gz
+
+# SRS549722 (A. m. iberiensis)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152737/SRR1152737.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152738/SRR1152738.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152739/SRR1152739.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152740/SRR1152740.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152741/SRR1152741.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152742/SRR1152742.fastq.gz
+
+# SRS549723 (A. m. iberiensis)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152743/SRR1152743.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152744/SRR1152744.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152745/SRR1152745.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152746/SRR1152746.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152747/SRR1152747.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152748/SRR1152748.fastq.gz
+
+# SRS549762 (A. m. mellifera)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152947/SRR1152947.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152948/SRR1152948.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152949/SRR1152949.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152950/SRR1152950.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152951/SRR1152951.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152952/SRR1152952.fastq.gz
+
+# SRS549761 (A. m. mellifera)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/001/SRR1152941/SRR1152941.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/002/SRR1152942/SRR1152942.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/003/SRR1152943/SRR1152943.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/004/SRR1152944/SRR1152944.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152945/SRR1152945.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152946/SRR1152946.fastq.gz
+
+# SRS549760 (A. m. mellifera)		[Msx]
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/005/SRR1152935/SRR1152935.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/006/SRR1152936/SRR1152936.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/007/SRR1152937/SRR1152937.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/008/SRR1152938/SRR1152938.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/009/SRR1152939/SRR1152939.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR115/000/SRR1152940/SRR1152940.fastq.gz
+
+
+# Build BWT and FM-index for genome [only needs be done once]
+REF=/home/dwragg/save/Apis/Apis_mellifera.fa
+CREF=/home/dwragg/save/Apis/CUSHAW3-Apis
+#cushaw3 index -c -p ${CREF} ${REF}
+
+# Align reads
+# -r is base name for reference genome
+DUMP="/home/dwragg/work/Analysis"
+PIPE="/home/dwragg/work/Pipeline"
+IN="/work/dwragg"
+SAMPLE="SRS549723"
+
+mkdir -p ${IN}/SRA/${SAMPLE}/logs
+mv ${IN}/SRA/*.fastq.gz ${IN}/SRA/${SAMPLE}
+printf "%s\n" ${IN}/SRA/${SAMPLE}/*.fastq.gz > ${IN}/SRA/${SAMPLE}/${SAMPLE}.samples
+
+# Run cushaw3 (on cluster!)
+mkdir -p ${DUMP}/logs/${SAMPLE}
+qsub -q unlimitq -l mem=4G -l h_vmem=16G -pe parallel_smp 4 \
+    -o ${DUMP}/logs/${SAMPLE} \
+    -e ${DUMP}/logs/${SAMPLE} \
+    ${PIPE}/cushaw.sh \
+      -i ${PIPE}/params \
+      -f ${IN}/SRA/${SAMPLE}/${SAMPLE}.samples \
+      -o ${IN}/SRA \
+      -s ${SAMPLE}
+
+# Call SNPs
+qsub -q workq -l mem=4G -l h_vmem=48G -pe parallel_smp 4 \
+  -o ${DUMP}/logs/${SAMPLE} \
+  -e ${DUMP}/logs/${SAMPLE} \
+  ${PIPE}/snps-diploid.sh -i ${PIPE}/params -p "F" -q "F" \
+    -s ${SAMPLE} -f ${IN}/SRA/${SAMPLE} -o ${IN}/SRA
+
+# Calc stats
+qsub -q workq -l mem=4G -l h_vmem=48G -pe parallel_smp 4 \
+  -o ${DUMP}/logs/${SAMPLE} \
+  -e ${DUMP}/logs/${SAMPLE} \
+  ${PIPE}/stat.sh -i ${PIPE}/params -p "F" -q "F" \
+    -s ${SAMPLE} -f ${IN}/SRA/${SAMPLE} -o ${IN}/SRA
+
+
+
+

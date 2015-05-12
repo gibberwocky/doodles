@@ -1,0 +1,11 @@
+REF=/home/dwragg/save/Apis/Apis_mellifera.fa
+
+BWA=/usr/local/bioinfo/src/bwa/bwa-0.7.9a-r786
+PICARD=/usr/local/bioinfo/src/picard-tools/current
+GATK=/usr/local/bioinfo/src/GATK/GenomeAnalysisTK-3.1-1
+PLATYPUS=/usr/local/bioinfo/src/platypus/current
+VCFT=/usr/local/bioinfo/src/vcftools/current/perl
+BAYSIC=/usr/local/bioinfo/src/baysic/current
+
+PERLSCRIPTS=/home/dwragg/save/Scripts/Perl
+RSCRIPTS=/home/dwragg/save/Scripts/R

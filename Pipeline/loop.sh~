@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Location of paired .fastq.gz files
+IN="/home/Rdrive/RedJungleFowl/Data/Apis"
+
+# Read in list of files
+SAMPLELIST=(*)
+
+# Strip out the extension
+tmp1=(${SAMPLELIST[@]/_R1.fastq.gz/})
+tmp2=(${tmp1[@]/_R2.fastq.gz/})
+
+# Reduce to unique list
+tmp3=( $( printf "%s\n" "${tmp2[@]}" | awk 'x[$0]++ == 0' ) )
+
+for i in ${tmp3[@]}
+do
+  ./BEEpipe.sh -i params -s ${i}
+done
+

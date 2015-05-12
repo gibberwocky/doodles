@@ -1,0 +1,272 @@
+#!/bin/bash
+# IEKNGHER1ujm
+
+# Load modules
+module load bioinfo/bcftools
+
+# Paths to main folders
+DUMP=/home/dwragg/work/Analysis
+PIPE=/save/seqapipop/Scripts
+PERL=${PIPE}/Perl
+SEQA=/save/seqapipop/Data/Apis-mellifera
+AMEL=/work/dwragg/Apis-mellifera
+
+OUT=${DUMP}/vcfs/MIXED
+sites=${DUMP}/sites/HARP-JFM-OTH.vcf.gz
+
+# ==============================================================================
+# Genotype Wallberg and Liu samples @ ${sites}
+# ==============================================================================
+BAM_WALL=(${AMEL}/Wallberg/bams/*_bootstrap.bam)
+printf "%s\n" "${BAM_WALL[@]}" > ${DUMP}/vcfs/lists/Wallberg_bams.list
+
+BAM_LIU=(/work/dwragg/SRA/*/*_bootstrap.bam)
+printf "%s\n" "${BAM_LIU[@]}" > ${DUMP}/vcfs/lists/tmp-LIU_bams.list
+
+# Run (pay attention to ploidy flag!)
+qsub -q unlimitq -l mem=4G -l h_vmem=48G -pe parallel_smp 4 \
+    -o ${DUMP}/logs \
+    -e ${DUMP}/logs \
+    ${PIPE}/geno-sites.sh -o ${OUT} -s ${sites} -p 1 \
+      -b ${DUMP}/vcfs/lists/tmp-LIU_bams.list \
+      -n Liu
+
+
+# ==============================================================================
+# Create diploid drones 
+# ==============================================================================
+
+RAW_VCF="Liu_preImp"
+
+# Reduce to chromosomes 1-16
+bcftools view --types snps -M 2 -O v \
+  --regions 'NC_007070.3','NC_007071.3','NC_007072.3','NC_007073.3',\
+'NC_007074.3','NC_007075.3','NC_007076.3','NC_007077.3','NC_007078.3',\
+'NC_007079.3','NC_007080.3','NC_007081.3','NC_007082.3','NC_007083.3',\
+'NC_007084.3','NC_007085.3' \
+  -o ${OUT}/${RAW_VCF}_chrs16.vcf \
+  ${OUT}/${RAW_VCF}.vcf.gz
+
+# Change from accession to chromosome naming and fix _ in sample names
+${PIPE}/accession-to-chr.sh -i ${OUT}/${RAW_VCF}_chrs16.vcf 
+sed -i '/^#CHROM/s/_/-/g' ${OUT}/${RAW_VCF}_chrs16.vcf 
+
+# Perform QC in Plink
+# Slightly different to the main QC. purpose here is to remove low
+# calling genotypes, not to worry about MAF because an allele can be fixed
+# in a population
+PLINK="/usr/local/bioinfo/src/plink/plink-1.90-x86_64"
+${PLINK}/plink --vcf ${OUT}/${RAW_VCF}_chrs16.vcf \
+  --keep-allele-order \
+  --a2-allele ${OUT}/${RAW_VCF}_chrs16.vcf 4 3 '#' \
+  --allow-no-sex \
+  --allow-extra-chr \
+  --chr-set 16 \
+  --chr 1-16 \
+  --set-missing-snp-ids @:#[Amel4-5] \
+  --geno 0.1 \
+  --mind 1 \
+  --out ${OUT}/${RAW_VCF}_chrs16_qc \
+  --recode vcf-iid
+
+bgzip -f ${OUT}/${RAW_VCF}_chrs16_qc.vcf
+tabix -fp vcf ${OUT}/${RAW_VCF}_chrs16_qc.vcf.gz
+
+# Retain log
+mv ${OUT}/${RAW_VCF}_chrs16_qc.log ${OUT}/${RAW_VCF}_chrs16_qc_for_diploids.log
+
+# Remove unnecessary files
+rm ${OUT}/${RAW_VCF}_chrs16_qc.nosex
+
+# Impute missing 5% genotypes
+qsub -q unlimitq -l mem=4G -l h_vmem=16G -pe parallel_smp 4 \
+  -o ${DUMP}/logs \
+  -e ${DUMP}/logs \
+  ${PIPE}/impute.sh \
+    -v ${OUT}/${RAW_VCF}_chrs16_qc.vcf.gz \
+    -o ${OUT}/${RAW_VCF}_chrs16_qc_beagle
+
+# Once imputed, add contig lines to VCF header if not already present
+gunzip ${OUT}/${RAW_VCF}_chrs16_qc_beagle.vcf.gz 
+sed -i '/^#C.*$/i \!contigs' ${OUT}/${RAW_VCF}_chrs16_qc_beagle.vcf 
+sed -i '/^!contigs.*/r /save/seqapipop/Analysis/sites/VCF_contigs.header' \
+  ${OUT}/${RAW_VCF}_chrs16_qc_beagle.vcf 
+sed -i '/^!contigs.*/d' ${OUT}/${RAW_VCF}_chrs16_qc_beagle.vcf 
+bgzip -f ${OUT}/${RAW_VCF}_chrs16_qc_beagle.vcf 
+tabix -fp vcf ${OUT}/${RAW_VCF}_chrs16_qc_beagle.vcf.gz
+
+# [1] SRR1425450 - Colony 1 - I-41
+# [2] SRR1425453 - Colony 1 - I-42
+# [3] SRR1425470 - Colony 2 - II-27
+# [4] SRR1425471 - Colony 2 - II-28
+# [5] SRR1425485 - Colony 3 - III-D17
+# [6] SRR1425486 - Colony 3 - III-D18
+# Idea is to pair [1] with [4], [2] with [5], [3] with [6]
+
+# Identify samples for diploidy
+POP="Liu"
+SUFFIX="_preImp"
+readarray HAPS < ${DUMP}/vcfs/lists/${POP}_samples.list
+
+# Create file to record sample IDs for merging
+rm -f ${DUMP}/vcfs/lists/${POP}-diploid_vcfs.list
+touch ${DUMP}/vcfs/lists/${POP}-diploid_vcfs.list
+# Loop through all pairs
+x=0
+for ((i=0; i<3; i=i+1))
+do
+  # Write sample ID to file
+  printf "${OUT}/%s.vcf.gz\n" "${POP}-DIP${x}" \
+    >> ${DUMP}/vcfs/lists/${POP}-diploid_vcfs.list
+  # Create directory for logs
+  mkdir -p ${DUMP}/logs/${POP}-DIP${x}
+  # Create diploid from samples i and i+1
+  qsub -q unlimitq -l mem=4G -l h_vmem=16G -pe parallel_smp 1 \
+    -o ${DUMP}/logs/${POP}-DIP${x} \
+    -e ${DUMP}/logs/${POP}-DIP${x} \
+    ${PIPE}/diploid-drone.sh \
+      -v ${OUT}/${RAW_VCF}_chrs16_qc_beagle.vcf.gz \
+      -a ${HAPS[${i}]} \
+      -b ${HAPS[${i}+3]} \
+      -s ${POP}-DIP${x} \
+      -o ${OUT}
+  x=$((x+1))
+done
+
+# Remove dodgy diploids ( 0|-  1|-  -|0  -|1 ) = those with AN!=2
+# Also remove PL and/or GP tags if present
+cd ${OUT}
+ID=
+ID=(${POP}-DIP*.vcf.gz)
+ID=(${ID[@]/%.vcf.gz})
+for VCF in ${ID[@]}
+do
+  bcftools view --type snps --exclude 'AN!=2' -O z -o ${VCF}-clean.vcf.gz \
+    ${VCF}.vcf.gz
+  bcftools annotate -x FORMAT -O z -o ${VCF}.vcf.gz \
+    ${VCF}-clean.vcf.gz
+  tabix -fp vcf ${VCF}.vcf.gz
+  rm ${VCF}-clean.vcf.gz
+done
+
+# Merge diploids into single VCF
+bcftools merge -m snps -O z \
+  -l ${DUMP}/vcfs/lists/${POP}-diploid_vcfs.list \
+  -o ${OUT}/${POP}_diploid.vcf.gz
+tabix -fp vcf ${OUT}/${POP}_diploid.vcf.gz
+
+# Remove unnecessary files
+readarray FILES < ${DUMP}/vcfs/lists/${POP}-diploid_vcfs.list
+rm ${FILES[@]}
+tmp=$(printf "%s.tbi " ${FILES[@]})
+rm ${tmp}
+
+
+# ==============================================================================
+# QC Filter for non-diploid drone populations (no imputation yet)
+# ==============================================================================
+
+#OUT=${DUMP}/vcfs/HARP-JFM-OTH-15012015
+OUT=${DUMP}/vcfs/MIXED
+#RAW_VCF="Harpur_preImp"
+RAW_VCF="Wallberg_preImp"
+
+# Reduce to chromosomes 1-16
+bcftools view --types snps -M 2 -O v \
+  --regions 'NC_007070.3','NC_007071.3','NC_007072.3','NC_007073.3',\
+'NC_007074.3','NC_007075.3','NC_007076.3','NC_007077.3','NC_007078.3',\
+'NC_007079.3','NC_007080.3','NC_007081.3','NC_007082.3','NC_007083.3',\
+'NC_007084.3','NC_007085.3' \
+  -o ${OUT}/${RAW_VCF}_chrs16.vcf \
+  ${OUT}/${RAW_VCF}.vcf.gz
+
+# Change from accession to chromosome naming and fix _ in sample names
+${PIPE}/accession-to-chr.sh -i ${OUT}/${RAW_VCF}_chrs16.vcf 
+sed -i '/^#CHROM/s/_/-/g' ${OUT}/${RAW_VCF}_chrs16.vcf 
+
+# Perform QC in Plink
+# CAUTION, --geno and --mind are exclusion threholds, eg:
+# --geno 0.1 will remove all SNPs with less than 10% call rate
+PLINK="/usr/local/bioinfo/src/plink/plink-1.90-x86_64"
+${PLINK}/plink --vcf ${OUT}/${RAW_VCF}_chrs16.vcf \
+  --keep-allele-order \
+  --a2-allele ${OUT}/${RAW_VCF}_chrs16.vcf 4 3 '#' \
+  --allow-no-sex \
+  --allow-extra-chr \
+  --chr-set 16 \
+  --chr 1-16 \
+  --set-missing-snp-ids @:#[Amel4-5] \
+  --geno 0.1 \
+  --mind 1 \
+  --out ${OUT}/${RAW_VCF}_chrs16_qc \
+  --recode vcf-iid
+
+bgzip -f ${OUT}/${RAW_VCF}_chrs16_qc.vcf
+tabix -fp vcf ${OUT}/${RAW_VCF}_chrs16_qc.vcf.gz
+
+# Retain log
+mv ${OUT}/${RAW_VCF}_chrs16_qc.log ${OUT}/${RAW_VCF}_chrs16_qc_initial.log
+
+# Remove unnecessary files
+rm ${OUT}/${RAW_VCF}_chrs16_qc.nosex
+
+
+# ==============================================================================
+# Merge all data and QC
+# ==============================================================================
+
+OUT=${DUMP}/vcfs/MIXED
+RAW_VCF="Mixed_preImp"
+
+# Diploid dataset for Admixture, etc.
+bcftools merge -m snps -O v \
+  ${DUMP}/vcfs/HARP-JFM-OTH-15012015/Harpur_preImp_chrs16_qc.vcf.gz \
+  ${DUMP}/vcfs/HARP-JFM-OTH-15012015/JFM_diploid.vcf.gz \
+  ${DUMP}/vcfs/HARP-JFM-OTH-15012015/OTH_diploid.vcf.gz \
+  ${OUT}/Liu_diploid.vcf.gz \
+  ${OUT}/Wallberg_preImp_chrs16_qc.vcf.gz \
+  -o ${OUT}/${RAW_VCF}_chrs16.vcf
+
+# Discard Wallberg and Liu samples (manuscript data for imputation and QC)
+VCF="Harpur-JFMOTH"
+bcftools view -O v -o ${OUT}/${VCF}_chrs16.vcf \
+  -S ${DUMP}/vcfs/lists/Harpur-JFMOTH_samples.list \
+  ${OUT}/${RAW_VCF}_chrs16.vcf.gz
+
+# QC manuscript samples
+${PLINK}/plink --vcf ${OUT}/${VCF}_chrs16.vcf \
+  --keep-allele-order \
+  --a2-allele ${OUT}/${VCF}_chrs16.vcf 4 3 '#' \
+  --allow-no-sex \
+  --allow-extra-chr \
+  --chr-set 16 \
+  --chr 1-16 \
+  --set-missing-snp-ids @:#[Amel4-5] \
+  --geno 0.1 \
+  --mind 1 \
+  --maf 0.05 \
+  --out ${OUT}/${VCF}_chrs16_qc \
+  --recode vcf-iid
+
+bgzip -f ${OUT}/${RAW_VCF}_chrs16.vcf
+tabix -fp vcf ${OUT}/${RAW_VCF}_chrs16.vcf.gz
+bgzip -f ${OUT}/${RAW_VCF}_chrs16_qc.vcf
+tabix -fp vcf ${OUT}/${RAW_VCF}_chrs16_qc.vcf.gz
+
+# Remove unnecessary files
+rm ${OUT}/${RAW_VCF}_chrs16_qc.nosex
+
+# Impute missing 5% genotypes
+qsub -q unlimitq -l mem=4G -l h_vmem=16G -pe parallel_smp 4 \
+  -o ${DUMP}/logs \
+  -e ${DUMP}/logs \
+  ${PIPE}/impute.sh \
+    -v ${OUT}/${RAW_VCF}_chrs16_qc.vcf.gz \
+    -o ${OUT}/${RAW_VCF}_chrs16_qc_beagle
+
+
+# ==============================================================================
+# Data now analysis-ready
+# ==============================================================================
+
+

@@ -1,0 +1,611 @@
+#!bin/bash
+# IEKNGHER1ujm
+
+# Paths
+DUMP="/home/dwragg/work/Analysis"
+PIPE="/home/dwragg/work/Pipeline"
+
+
+#SRR957079	Apis cerana   
+#SRR957058	Apis mellifera
+#SRR957059	Apis mellifera
+#SRR957060	Apis mellifera
+#SRR957061	Apis mellifera
+#SRR957062	Apis mellifera
+#SRR957063	Apis mellifera
+#SRR957064	Apis mellifera
+#SRR957065	Apis mellifera
+#SRR957066	Apis mellifera
+#SRR957067	Apis mellifera
+#SRR957068	Apis mellifera
+#SRR957069	Apis mellifera
+#SRR957070	Apis mellifera
+#SRR957071	Apis mellifera
+#SRR957072	Apis mellifera
+#SRR957073	Apis mellifera
+#SRR957074	Apis mellifera
+#SRR957075	Apis mellifera
+#SRR957076	Apis mellifera
+#SRR957077	Apis mellifera
+#SRR957078	Apis mellifera
+#SRR957080	Apis mellifera
+#SRR957081	Apis mellifera
+#SRR957082	Apis mellifera
+#SRR957083	Apis mellifera
+#SRR957084	Apis mellifera
+#SRR957085	Apis mellifera
+#SRR957086	Apis mellifera
+#SRR957087	Apis mellifera
+#SRR957088	Apis mellifera
+#SRR957089	Apis mellifera
+#SRR957090	Apis mellifera
+#SRR957091	Apis mellifera
+#SRR957092	Apis mellifera
+#SRR957093	Apis mellifera
+#SRR957094	Apis mellifera
+#SRR957095	Apis mellifera
+#SRR957096	Apis mellifera
+#SRR957097	Apis mellifera
+#SRS559201	Apis mellifera
+#SRS556638	Apis mellifera scutellata
+#SRS556639	Apis mellifera scutellata
+#SRS556640	Apis mellifera scutellata
+#SRS556643	Apis mellifera scutellata
+#SRS556645	Apis mellifera scutellata
+#SRS556647	Apis mellifera jemenitica
+#SRS556646	Apis mellifera jemenitica
+#SRS556648	Apis mellifera scutellata
+#SRS556641	Apis mellifera litorea
+#SRS556649	Apis mellifera monticola
+#SRR667170	Apis mellifera syriaca
+#SRR1046114 	Apis mellifera intermissa
+
+# Apis mellifera
+AMEL=('SRR957058' 'SRR957059' 'SRR957060' 'SRR957061'
+'SRR957062' 'SRR957063' 'SRR957064' 'SRR957065' 'SRR957066' 'SRR957067'
+'SRR957068' 'SRR957069' 'SRR957070' 'SRR957071' 'SRR957072' 'SRR957073'
+'SRR957074' 'SRR957075' 'SRR957076' 'SRR957077' 'SRR957078' 'SRR957080' 'SRR957081' 'SRR957082' 'SRR957083' 'SRR957084' 'SRR957085' 'SRR957086' 'SRR957087' 'SRR957088' 'SRR957089' 'SRR957090' 'SRR957091' 'SRR957092' 'SRR957093' 'SRR957094' 'SRR957095' 'SRR957096' 'SRR957097' 'SRS559201')
+pop='AMEL'
+mkdir -p ${DUMP}/bams/AMEL
+mkdir -p ${DUMP}/vcfs/AMEL
+for ID in ${AMEL[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/*.bam ${DUMP}/bams/${pop}/${ID}.bam
+  ln -fs /save/seqapipop/Data/${ID}/*.bai ${DUMP}/bams/${pop}/${ID}.bai
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+  tabix -fp vcf ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+done
+ID="1"
+POP1_vcfs=(${DUMP}/vcfs/AMEL/*.gz)
+POP1_bams=(${DUMP}/bams/AMEL/*.bam)
+POP1_id=$(for i in ${POP1_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP1_hap=$(for i in ${POP1_vcfs[@]}; do printf "N\n"; done)
+
+# Apis cerana
+ACER='SRR957079'
+pop='ACER'
+mkdir -p ${DUMP}/bams/ACER
+mkdir -p ${DUMP}/vcfs/ACER
+for ID in ${ACER[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/*.bam ${DUMP}/bams/${pop}/${ID}.bam
+  ln -fs /save/seqapipop/Data/${ID}/*.bai ${DUMP}/bams/${pop}/${ID}.bai
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+  tabix -fp vcf ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+done
+ID="2"
+POP2_vcfs=(${DUMP}/vcfs/ACER/*.gz)
+POP2_bams=(${DUMP}/bams/ACER/*.bam)
+POP2_id=$(for i in ${POP2_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP2_hap=$(for i in ${POP2_vcfs[@]}; do printf "N\n"; done)
+
+# Apis mellifera scutellata
+ASCU=('SRS556638' 'SRS556639' 'SRS556640' 'SRS556643' 'SRS556645' 'SRS556648')
+pop='ASCU'
+mkdir -p ${DUMP}/bams/ASCU
+mkdir -p ${DUMP}/vcfs/ASCU
+for ID in ${ASCU[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/*.bam ${DUMP}/bams/${pop}/${ID}.bam
+  ln -fs /save/seqapipop/Data/${ID}/*.bai ${DUMP}/bams/${pop}/${ID}.bai
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+  tabix -fp vcf ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+done
+ID="3"
+POP3_vcfs=(${DUMP}/vcfs/ASCU/*.gz)
+POP3_bams=(${DUMP}/bams/ASCU/*.bam)
+POP3_id=$(for i in ${POP3_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP3_hap=$(for i in ${POP3_vcfs[@]}; do printf "N\n"; done)
+
+# Apis mellifera litorea
+ALIT='SRS556641'
+pop='ALIT'
+mkdir -p ${DUMP}/bams/ALIT
+mkdir -p ${DUMP}/vcfs/ALIT
+for ID in ${ALIT[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/*.bam ${DUMP}/bams/${pop}/${ID}.bam
+  ln -fs /save/seqapipop/Data/${ID}/*.bai ${DUMP}/bams/${pop}/${ID}.bai
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+  tabix -fp vcf ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+done
+ID="4"
+POP4_vcfs=(${DUMP}/vcfs/ALIT/*.gz)
+POP4_bams=(${DUMP}/bams/ALIT/*.bam)
+POP4_id=$(for i in ${POP4_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP4_hap=$(for i in ${POP4_vcfs[@]}; do printf "N\n"; done)
+
+# Apis mellifera jemenitica
+AJEM=('SRS556646' 'SRS556647')
+pop='AJEM'
+mkdir -p ${DUMP}/bams/AJEM
+mkdir -p ${DUMP}/vcfs/AJEM
+for ID in ${AJEM[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/*.bam ${DUMP}/bams/${pop}/${ID}.bam
+  ln -fs /save/seqapipop/Data/${ID}/*.bai ${DUMP}/bams/${pop}/${ID}.bai
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+  tabix -fp vcf ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+done
+ID="5"
+POP5_vcfs=(${DUMP}/vcfs/AJEM/*.gz)
+POP5_bams=(${DUMP}/bams/AJEM/*.bam)
+POP5_id=$(for i in ${POP5_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP5_hap=$(for i in ${POP5_vcfs[@]}; do printf "N\n"; done)
+
+# Apis mellifera monticola
+AMON='SRS556649'
+pop='AMON'
+mkdir -p ${DUMP}/bams/AMON
+mkdir -p ${DUMP}/vcfs/AMON
+for ID in ${AMON[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/*.bam ${DUMP}/bams/${pop}/${ID}.bam
+  ln -fs /save/seqapipop/Data/${ID}/*.bai ${DUMP}/bams/${pop}/${ID}.bai
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+  tabix -fp vcf ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+done
+ID="6"
+POP6_vcfs=(${DUMP}/vcfs/AMON/*.gz)
+POP6_bams=(${DUMP}/bams/AMON/*.bam)
+POP6_id=$(for i in ${POP6_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP6_hap=$(for i in ${POP6_vcfs[@]}; do printf "N\n"; done)
+
+# Apis mellifera syriaca
+ASYR='SRR667170'
+pop='ASYR'
+mkdir -p ${DUMP}/bams/ASYR
+mkdir -p ${DUMP}/vcfs/ASYR
+for ID in ${ASYR[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/*.bam ${DUMP}/bams/${pop}/${ID}.bam
+  ln -fs /save/seqapipop/Data/${ID}/*.bai ${DUMP}/bams/${pop}/${ID}.bai
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+  tabix -fp vcf ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+done
+ID="7"
+POP7_vcfs=(${DUMP}/vcfs/ASYR/*.gz)
+POP7_bams=(${DUMP}/bams/ASYR/*.bam)
+POP7_id=$(for i in ${POP7_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP7_hap=$(for i in ${POP7_vcfs[@]}; do printf "N\n"; done)
+
+# Apis mellifera intermissa
+AINT='SRR1046114'
+pop='AINT'
+mkdir -p ${DUMP}/bams/AINT
+mkdir -p ${DUMP}/vcfs/AINT
+for ID in ${AINT[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/*.bam ${DUMP}/bams/${pop}/${ID}.bam
+  ln -fs /save/seqapipop/Data/${ID}/*.bai ${DUMP}/bams/${pop}/${ID}.bai
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+  tabix -fp vcf ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+done
+ID="8"
+POP8_vcfs=(${DUMP}/vcfs/AINT/*.gz)
+POP8_bams=(${DUMP}/bams/AINT/*.bam)
+POP8_id=$(for i in ${POP8_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP8_hap=$(for i in ${POP8_vcfs[@]}; do printf "N\n"; done)
+
+
+
+
+
+# =============================================================================
+# JFM
+# =============================================================================
+JFM=('JFM1_ATCACG_L001' 'JFM2_CGATGT_L001' 'JFM3_TTAGGC_L001' 'JFM4_TGACCA_L001' 'JFM5_ACAGTG_L001' 'JFM6_GCCAAT_L001' 'JFM7_CAGATC_L001' 'JFM8' 'JFM9_GATCAG_L001'
+'JFM10_TAGCTT_L001' 'JFM11' 'JFM12_CTTGTA_L001' 'JFM13_AGTCAA_L001' 'JFM14_AGTTCC_L001' 'JFM15_ATGTCA_L001' 'JFM16_CCGTCC_L001' 'JFM17_GTCCGC_L001' 'JFM18_GTGAAA_L001' 'JFM19_GTGGCC_L001' 'JFM20_GTTTCG_L001' 'JFM21_ATCACG_L004' 'JFM22_CGATGT_L004' 'JFM23_TTAGGC_L004' 'JFM24_TGACCA_L004' 'JFM25_ACAGTG_L004' 'JFM26_GCCAAT_L004' 'JFM28_CAGATC_L004' 'JFM29_ACTTGA_L004' 'JFM31_GATCAG_L004' 'JFM33_TAGCTT_L004')
+mkdir -p ${DUMP}/vcfs/pop1
+mkdir -p ${DUMP}/bams/pop1
+for ID in ${POP1[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/pop1/${ID}_clean.vcf.gz
+  tabix -p vcf ${DUMP}/vcfs/pop1/${ID}_clean.vcf.gz
+  ln -fs /save/seqapipop/Data/${ID}/${ID}_bootstrap.bam \
+    ${DUMP}/bams/pop1/${ID}_bootstrap.bam
+  ln -fs /save/seqapipop/Data/${ID}/${ID}_bootstrap.bam.bai \
+    ${DUMP}/bams/pop1/${ID}_bootstrap.bam.bai
+done
+ID="9"
+POP9_vcfs=(${DUMP}/vcfs/pop1/*.gz)
+POP9_bams=(${DUMP}/bams/pop1/*.bam)
+POP9_id=$(for i in ${POP9_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP9_hap=$(for i in ${POP9_vcfs[@]}; do printf "Y\n"; done)
+
+# =============================================================================
+# OTH
+# =============================================================================
+OTH=('FL1_AGTCAA_L004' 'FL2_AGTTCC_L004' 'FL3_ATGTCA_L004' 'FL7_CCGTCC_L004' 'FL8_GTTTCG_L007' 'FL9_GTCCGC_L004' 'FL11_GTGAAA_L004' 'FL12_CGTACG_L007' 'FL13_GTGGCC_L004' 'FL15_GTTTCG_L004' 'NM1_ATCACG_L007' 'NM2_CTTGTA_L004' 'NM3_CGATGT_L007' 'NM4_TTAGGC_L007' 'NM5_GGCTAC_L004' 'NM6_TGACCA_L007' 'NM7_ACAGTG_L007' 'NM8_GCCAAT_L007' 'NM9_CAGATC_L007' 'NM21_ACTTGA_L007' 'NM25_GATCAG_L007' 'NM26_TAGCTT_L007' 'NM28_GGCTAC_L007' 'NM29_CTTGTA_L007'  'PM1_AGTCAA_L007' 'XC1_AGTTCC_L007' 'XC3_ATGTCA_L007' 'XC4_CCGTCC_L007' 'XC5_GTCCGC_L007' 'XC9_GTGAAA_L007')
+mkdir -p ${DUMP}/vcfs/pop2
+mkdir -p ${DUMP}/bams/pop2
+for ID in ${POP2[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/pop2/${ID}_clean.vcf.gz
+  tabix -p vcf ${DUMP}/vcfs/pop2/${ID}_clean.vcf.gz
+  ln -fs /save/seqapipop/Data/${ID}/${ID}_bootstrap.bam \
+    ${DUMP}/bams/pop2/${ID}_bootstrap.bam
+  ln -fs /save/seqapipop/Data/${ID}/${ID}_bootstrap.bam.bai \
+    ${DUMP}/bams/pop2/${ID}_bootstrap.bam.bai
+done
+ID="10"
+POP10_vcfs=(${DUMP}/vcfs/pop2/*.gz)
+POP10_bams=(${DUMP}/bams/pop2/*.bam)
+POP10_id=$(for i in ${POP10_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP10_hap=$(for i in ${POP10_vcfs[@]}; do printf "Y\n"; done)
+
+
+# =============================================================================
+# Black bees (BR)
+# =============================================================================
+BR=('BR20-PE_TTAGGC_L008' 'BR45-PE_GATCAG_L008')
+pop='BR'
+mkdir -p ${DUMP}/bams/BR
+mkdir -p ${DUMP}/vcfs/BR
+for ID in ${BR[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/BR/${ID}_clean.vcf.gz
+  tabix -p vcf ${DUMP}/vcfs/BR/${ID}_clean.vcf.gz
+  ln -fs /save/seqapipop/Data/${ID}/${ID}_bootstrap.bam \
+    ${DUMP}/bams/BR/${ID}_bootstrap.bam
+  ln -fs /save/seqapipop/Data/${ID}/${ID}_bootstrap.bam.bai \
+    ${DUMP}/bams/BR/${ID}_bootstrap.bam.bai
+done
+ID="11"
+POP11_vcfs=(${DUMP}/vcfs/BR/*.gz)
+POP11_bams=(${DUMP}/bams/BR/*.bam)
+POP11_id=$(for i in ${POP11_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP11_hap=$(for i in ${POP11_vcfs[@]}; do printf "Y\n"; done)
+
+
+# =============================================================================
+# Merge population details and write to file
+# =============================================================================
+VCFS=( ${POP1_vcfs[@]} ${POP2_vcfs[@]} ${POP3_vcfs[@]} ${POP4_vcfs[@]} \
+       ${POP5_vcfs[@]} ${POP6_vcfs[@]} ${POP7_vcfs[@]} ${POP8_vcfs[@]} \
+       ${POP9_vcfs[@]} ${POP10_vcfs[@]} ${POP11_vcfs[@]} )
+BAMS=( ${POP1_bams[@]} ${POP2_bams[@]} ${POP3_bams[@]} ${POP4_bams[@]} \
+       ${POP5_bams[@]} ${POP6_bams[@]} ${POP7_bams[@]} ${POP8_bams[@]} \
+       ${POP9_bams[@]} ${POP10_bams[@]} ${POP11_bams[@]} )
+POPS=( ${POP1_id[@]} ${POP2_id[@]} ${POP3_id[@]} ${POP4_id[@]} \
+       ${POP5_id[@]} ${POP6_id[@]} ${POP7_id[@]} ${POP8_id[@]} \
+       ${POP9_id[@]} ${POP10_id[@]} ${POP11_id[@]} )
+HAPF=( ${POP1_hap[@]} ${POP2_hap[@]} ${POP3_hap[@]} ${POP4_hap[@]} \
+       ${POP5_hap[@]} ${POP6_hap[@]} ${POP7_hap[@]} ${POP8_hap[@]} \
+       ${POP9_hap[@]} ${POP10_hap[@]} ${POP11_hap[@]} )
+
+# The HAPF column indicates whether sample is haploid as this determines
+# whether heterozygous SNP calls need replacing as missing when it comes
+# to imputing missing genoytpes. A given population number can only have
+# one value for this, otherwise it becomes difficult to script.
+
+# Write table to file
+FILE=${DUMP}/samplesBR
+for ((i=0;i<${#POPS[@]};i++));
+do
+  if [[ $i = 0 ]]
+    then printf "${POPS[$i]}\t${VCFS[$i]}\t${BAMS[$i]}\t${HAPF[$i]}\n" > "${FILE}"
+  fi
+  if [[ $i > 0 ]]
+    then printf "${POPS[$i]}\t${VCFS[$i]}\t${BAMS[$i]}\t${HAPF[$i]}\n" >> "${FILE}"
+  fi
+done
+
+
+
+
+
+
+# =============================================================================
+# Impute missing genotypes and merge to single vcf
+# =============================================================================
+
+# 18,192,840 SNPs in sites.vcf.gz
+# 113 samples
+# 14M of these SNPs not present in JFM-OTH so running with just the 4M SNPs
+# present in the EurBee dataset.
+
+# Generate list of sites
+#bcftools merge ${BAMS[@]} | bcftools view --types snps -G -M 2 -O z \
+#  -o ${DUMP}/JFM-OTH_sites.vcf.gz -
+#tabix -fp vcf ${DUMP}/JFM-OTH_sites.vcf.gz
+
+# --- OR ---
+
+# Recover list of sites
+module load bioinfo/bcftools
+bcftools view --types snps -G -M 2 -O z \
+  -o ${DUMP}/JFM-OTH_sites.vcf.gz ${DUMP}/vcfs/EurBee.vcf.gz
+tabix -fp vcf ${DUMP}/JFM-OTH_sites.vcf.gz
+
+# --- THEN ---
+
+# Impute
+qsub -q unlimitq -l mem=4G -l h_vmem=48G -pe parallel_smp 4 \
+    -o ${DUMP}/logs \
+    -e ${DUMP}/logs \
+    ${PIPE}/impute-v2.sh -i ${FILE} -o ${DUMP}/vcfs -n BR \
+      -s ${DUMP}/vcfs/JFM-OTH-Apis/JFM-OTH_sites.vcf.gz
+
+# Remove spare files
+rm *beagle*tbi
+rm *beagle.log
+rm *total*idx
+
+# Merge VCFs from each population (was necessary due to missing pop 1)
+#tabix -fp vcf ${DUMP}/vcfs/JFM-OTH-Apis/JFM-OTH-Apis.vcf.gz
+#module load bioinfo/bcftools
+#bcftools merge ${DUMP}/vcfs/1_beagle.vcf.gz \
+#  ${DUMP}/vcfs/JFM-OTH-Apis/JFM-OTH-Apis.vcf.gz \
+#  > ${DUMP}/vcfs/JFM-OTH-BR-Apis.vcf
+#bgzip ${DUMP}/vcfs/JFM-OTH-BR-Apis.vcf
+#tabix -fp vcf ${DUMP}/vcfs/JFM-OTH-BR-Apis.vcf.gz
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# =============================================================================
+# Temporary fix to patch-in additional population
+# =============================================================================
+# SRS549635 (A. m. ligustica)	[X]
+# SRS549667 (A. m. syriaca)	[r]
+# SRS549687 (A. m. carnica)	[r]
+# SRS549707 (A. mellifera -US)	[r]
+# SRS549778 (A. m. adansonii)	[r]
+# SRS549768 (A. m. capensis)	[r]
+# SRS549763 (A. mellifera -SE)	[r]
+# SRS549718 (A. m. iberiensis)	[r]
+# SRS549717 (A. m. anatolica)	[r]
+# SRS549753 (A. mellifera -EU)	[r]
+
+# Link to sites file to use for genotyping
+ln -fs /save/seqapipop/Analysis/JFM-OTH_sites.vcf.gz \
+  ${DUMP}/sites/JFM-OTH_sites.vcf.gz
+ln -fs /save/seqapipop/Analysis/JFM-OTH_sites.vcf.gz.tbi \
+  ${DUMP}/sites/JFM-OTH_sites.vcf.gz.tbi
+
+sites=${DUMP}/sites/JFM-OTH_sites.vcf.gz
+IDS=('SRS549753')
+pop=${IDS}
+haploid='N'
+mkdir -p ${DUMP}/bams/${pop}
+mkdir -p ${DUMP}/vcfs/${pop}
+mkdir -p ${DUMP}/samples/${pop}
+for ID in ${IDS[@]}
+do
+  ln -fs /save/seqapipop/Data/${ID}/vcfs/${ID}_clean.vcf.gz \
+    ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+  tabix -p vcf ${DUMP}/vcfs/${pop}/${ID}_clean.vcf.gz
+  ln -fs /save/seqapipop/Data/${ID}/${ID}_bootstrap.bam \
+    ${DUMP}/bams/${pop}/${ID}_bootstrap.bam
+  ln -fs /save/seqapipop/Data/${ID}/${ID}_bootstrap.bam.bai \
+    ${DUMP}/bams/${pop}/${ID}_bootstrap.bam.bai
+done
+ID="1"
+POP0_vcfs=(${DUMP}/vcfs/${pop}/*.gz)
+POP0_bams=(${DUMP}/bams/${pop}/*.bam)
+POP0_id=$(for i in ${POP0_vcfs[@]}; do printf "%0.s${ID}\n"; done)
+POP0_hap=$(for i in ${POP0_vcfs[@]}; do printf "${haploid}\n"; done)
+
+# Prep for imputation
+VCFS=( ${POP0_vcfs[@]} )
+BAMS=( ${POP0_bams[@]} )
+POPS=( ${POP0_id[@]}  )
+HAPF=( ${POP0_hap[@]} )
+
+# Write table to file
+FILE=${DUMP}/samples/${pop}/${pop}.samples
+for ((i=0;i<${#POPS[@]};i++));
+do
+  if [[ $i = 0 ]]
+    then printf "${POPS[$i]}\t${VCFS[$i]}\t${BAMS[$i]}\t${HAPF[$i]}\n" > "${FILE}"
+  fi
+  if [[ $i > 0 ]]
+    then printf "${POPS[$i]}\t${VCFS[$i]}\t${BAMS[$i]}\t${HAPF[$i]}\n" >> "${FILE}"
+  fi
+done
+
+# Genotype/impute
+qsub -q unlimitq -l mem=4G -l h_vmem=48G -pe parallel_smp 4 \
+    -o ${DUMP}/logs \
+    -e ${DUMP}/logs \
+    ${PIPE}/impute-v2.sh -i ${FILE} -o ${DUMP}/vcfs/${pop} -n ${pop} \
+      -s ${sites}
+
+# Remove spare files
+rm ${DUMP}/vcfs/${pop}/*beagle*tbi
+rm ${DUMP}/vcfs/${pop}/*beagle.log
+rm ${DUMP}/vcfs/${pop}/*total*idx
+
+
+
+
+
+
+
+# Select samples of interest and merge
+module load bioinfo/bcftools
+mainPOP="${DUMP}/vcfs/JFM-OTH-Apis/JFM-OTH-BR-Apis.vcf.gz"
+
+# Split mainPop up into groups of samples
+var=$( IFS=$','; echo "${BR[*]}" )
+bcftools view --types snps -M 2 -O v \
+  -s ${var} \
+  -o ${DUMP}/vcfs/VCF-SITES/BR_A.vcf \
+  ${mainPOP}
+
+# Merge the SOLiD data
+SOLID=(${DUMP}/vcfs/SRS*/*_beagle.vcf.gz)
+var=$( IFS=$' '; echo "${SOLID[*]}" )
+bcftools merge -m snps -O v ${var} \
+  -o ${DUMP}/vcfs/VCF-SITES/Amel-Wallberg_A.vcf
+
+
+# Merge all populations of interest together
+# bcftools generating an error relating to GP fields
+# But it works ok if the FORMAT fields are removed (except GT)
+cd ${DUMP}/vcfs/VCF-SITES
+bcftools annotate -x FORMAT -O z \
+  -o ${DUMP}/vcfs/VCF-SITES/Amel-Misc-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/Amel-Misc_A.vcf.gz
+tabix -fp vcf ${DUMP}/vcfs/VCF-SITES/Amel-Misc-test_A.vcf.gz
+
+bcftools annotate -x FORMAT -O z \
+  -o ${DUMP}/vcfs/VCF-SITES/Amel-Harpur-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/Amel-Harpur_A.vcf.gz
+tabix -fp vcf ${DUMP}/vcfs/VCF-SITES/Amel-Harpur-test_A.vcf.gz
+
+bcftools annotate -x FORMAT -O z \
+  -o ${DUMP}/vcfs/VCF-SITES/Amel-Wallberg-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/Amel-Wallberg_A.vcf.gz
+tabix -fp vcf ${DUMP}/vcfs/VCF-SITES/Amel-Wallberg-test_A.vcf.gz
+
+bcftools annotate -x FORMAT -O z \
+  -o ${DUMP}/vcfs/VCF-SITES/JFM-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/JFM_A.vcf.gz
+tabix -fp vcf ${DUMP}/vcfs/VCF-SITES/JFM-test_A.vcf.gz
+
+bcftools annotate -x FORMAT -O z \
+  -o ${DUMP}/vcfs/VCF-SITES/OTH-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/OTH_A.vcf.gz
+tabix -fp vcf ${DUMP}/vcfs/VCF-SITES/OTH-test_A.vcf.gz
+
+bcftools annotate -x FORMAT -O z \
+  -o ${DUMP}/vcfs/VCF-SITES/BR-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/BR_A.vcf.gz
+tabix -fp vcf ${DUMP}/vcfs/VCF-SITES/BR-test_A.vcf.gz
+
+bcftools merge -m snps -O v \
+  ${DUMP}/vcfs/VCF-SITES/Amel-Harpur-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/Amel-Misc-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/Amel-Wallberg-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/JFM-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/OTH-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/BR-test_A.vcf.gz \
+  -o ${DUMP}/vcfs/VCF-SITES/Amel-test_A.vcf
+
+
+
+
+# Merge the individual diploid drones for JFM
+JFM_DIP=('JFM1JFM2' 'JFM3JFM4' 'JFM5JFM6' 'JFM7JFM8' 'JFM9JFM10' 'JFM11JFM12' 'JFM13JFM14' 'JFM15JFM16' 'JFM17JFM18' 'JFM19JFM20' 'JFM21JFM22' 'JFM23JFM24' 'JFM25JFM26' 'JFM28JFM29' 'JFM31JFM33')
+JFM_DIR=${DUMP}/vcfs/diploid-JFM
+for ID in ${JFM_DIP[@]}
+do
+  bgzip ${JFM_DIR}/${ID}.vcf
+  bcftools annotate -x FORMAT -O z \
+    -o ${JFM_DIR}/${ID}-test_A.vcf.gz \
+    ${JFM_DIR}/${ID}.vcf.gz
+  tabix -fp vcf ${JFM_DIR}/${ID}-test_A.vcf.gz
+done
+JFM_DIP=(${JFM_DIR}/*_A.vcf.gz)
+bcftools merge -m snps -O z \
+  ${JFM_DIP[@]} \
+  -o ${DUMP}/vcfs/VCF-SITES/JFM-diploid-test_A.vcf.gz
+tabix -fp vcf ${DUMP}/vcfs/VCF-SITES/JFM-diploid-test_A.vcf.gz
+
+# Merge the individual diploid drones for OTH
+OTH_DIP=('FL1FL2' 'FL3FL7' 'FL8FL9' 'FL11FL12' 'FL13FL15' 'NM1NM2' 'NM3NM4' 'NM5NM6' 'NM7NM8' 'NM9NM21' 'NM25NM26' 'NM28NM29' 'PM1XC1' 'XC3XC4' 'XC5XC9')
+OTH_DIR=${DUMP}/vcfs/diploid-OTH
+for ID in ${OTH_DIP[@]}
+do
+  bgzip ${OTH_DIR}/${ID}.vcf
+  bcftools annotate -x FORMAT -O z \
+    -o ${OTH_DIR}/${ID}-test_A.vcf.gz \
+    ${OTH_DIR}/${ID}.vcf.gz
+  tabix -fp vcf ${OTH_DIR}/${ID}-test_A.vcf.gz
+done
+OTH_DIP=(${OTH_DIR}/*_A.vcf.gz)
+bcftools merge -m snps -O z \
+  ${OTH_DIP[@]} \
+  -o ${DUMP}/vcfs/VCF-SITES/OTH-diploid-test_A.vcf.gz
+tabix -fp vcf ${DUMP}/vcfs/VCF-SITES/OTH-diploid-test_A.vcf.gz
+
+# Merge the individual diploid drones for BR
+BR_DIP=('BR20BR45')
+BR_DIR=${DUMP}/vcfs/diploid-BR
+for ID in ${BR_DIP[@]}
+do
+  bgzip ${BR_DIR}/${ID}.vcf
+  bcftools annotate -x FORMAT -O z \
+    -o ${BR_DIR}/${ID}-test_A.vcf.gz \
+    ${BR_DIR}/${ID}.vcf.gz
+  tabix -fp vcf ${BR_DIR}/${ID}-test_A.vcf.gz
+done
+BR_DIP=(${BR_DIR}/*_A.vcf.gz)
+#bcftools merge -m snps -O z \
+#  ${BR_DIP[@]} \
+#  -o ${DUMP}/vcfs/VCF-SITES/BR-diploid-test_A.vcf.gz
+bcftools view -m snps -O z \
+  -o ${DUMP}/vcfs/VCF-SITES/BR-diploid-test_A.vcf.gz \
+  ${BR_DIP}
+
+tabix -fp vcf ${DUMP}/vcfs/VCF-SITES/BR-diploid-test_A.vcf.gz
+
+
+
+
+
+
+
+# Merge data
+bcftools merge -m snps -O v \
+  ${DUMP}/vcfs/VCF-SITES/Amel-Harpur-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/Amel-Misc-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/Amel-Wallberg-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/JFM-diploid-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/OTH-diploid-test_A.vcf.gz \
+  ${DUMP}/vcfs/VCF-SITES/BR-diploid-test_A.vcf.gz \
+  -o ${DUMP}/vcfs/VCF-SITES/Amel-test_A.vcf
+
+# Retain only homozygous SNPs (bad results)
+bcftools view -m snps -g ^het -O v \
+  -o ${DUMP}/vcfs/VCF-SITES/Amel-test-hom_A.vcf \
+  ${DUMP}/vcfs/VCF-SITES/Amel-test_A.vcf
+rm ${DUMP}/vcfs/VCF-SITES/Amel-test_A.vcf
+mv ${DUMP}/vcfs/VCF-SITES/Amel-test-hom_A.vcf \
+  ${DUMP}/vcfs/VCF-SITES/Amel-test_A.vcf
+
+

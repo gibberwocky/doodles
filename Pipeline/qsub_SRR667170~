@@ -1,0 +1,31 @@
+# !/bin/bash
+# IEKNGHER1ujm
+
+# SRR667170 (GA IIx)
+# Apis mellifera syriaca is the native honey bee subspecies of Jordan and much of the Middle East. It expresses behavioral adaptations to a regional climate with very high temperatures, nectar dearth in summer, attacks of the Oriental wasp "Vespa orientalis" and in most cases it is resistant to varroa mites.
+
+
+# Location of links to paired .fastq.gz files
+IN="/home/dwragg/work/SRA/SRR667170"
+
+# SAMPLE
+ID="SRR667170"
+
+# Rename for map.sh
+# rename _1 _R1 *
+# rename _2 _R2 *
+
+# Set root paths
+DUMP="/home/dwragg/work/Analysis"
+PIPE="/home/dwragg/work/Pipeline"
+
+# qsub loop (usable for map.sh, stat.sh, snps.sh)
+mkdir -p ${DUMP}/logs/${ID}
+cd ${DUMP}
+qsub -q workq -l mem=4G -l h_vmem=48G -pe parallel_smp 4 \
+  -o ${DUMP}/logs/${ID} \
+  -e ${DUMP}/logs/${ID} \
+  ${PIPE}/snps-diploid.sh -i ${PIPE}/params -p "T" -q "T" -s ${ID} -f ${IN} -o ${DUMP}
+
+
+# *** FINISHED ***

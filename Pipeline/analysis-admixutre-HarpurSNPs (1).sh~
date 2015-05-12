@@ -1,0 +1,11 @@
+#!/bin/bash
+# IEKNGHER1ujm
+
+# Load modules
+module load bioinfo/bcftools
+
+
+
+
+DUMP="/home/dwragg/work/Analysis"
+

@@ -1,0 +1,186 @@
+#!/bin/bash
+# IEKNGHER1ujm
+
+# Set-up
+module load bioinfo/bcftools
+DUMP="/home/dwragg/work/Analysis"
+PIPE="/home/dwragg/work/Pipeline"
+PLINK="/usr/local/bioinfo/src/plink/plink-1.90-x86_64"
+SITES=${DUMP}/vcfs/AMEL-4M
+FILEDIR=${DUMP}/vcfs/VCF-SITES
+
+# File to analyse (_A is haploid, _B is diploid) 
+FILE=Amel-test_B
+
+
+# =============================================================================
+# Reference dataset = AMCO.vcf.gz
+# =============================================================================
+# (Harpur and Wallberg)
+# Originally comprised Misc, all samples were grouped per lineage prior to
+# imputation. The Misc samples were subequently removed. The AMEL-4M sites
+# were generated from the original 3 datasets, stipulating a minimum allele
+# frequency of 0.1 and a 100 < depth of coverage  < 1000.
+
+# Subset AMCO to just Harpur/Wallberg
+samples=(${O_Harpur[@]} ${O_Wallberg[@]})
+printf "%s\n" ${samples[@]} > ${DUMP}/samples/include.list
+bcftools view -m snps -O z \
+  -S ${DUMP}/samples/include.list \
+  -o ${SITES}/O_Harpur-Wallberg.vcf.gz \
+  ${SITES}/AMCO.vcf.gz
+tabix -p vcf ${SITES}/AMCO_Harpur.vcf.gz
+# Above mini block of code is redundant at present, noticed an error in the data
+
+# Merge data prior to analysis
+bcftools merge -m snps -O v \
+  ${SITES}/AMCO_Harpur.vcf.gz \
+  ${SITES}/JFM-diploid.vcf.gz \
+  ${SITES}/OTH-diploid.vcf.gz \
+  ${SITES}/BR-diploid.vcf.gz \
+  -o ${FILEDIR}/${FILE}.vcf
+
+
+# Replace underscores in sample IDs
+sed -i '/^#CHROM/s/_/-/g' ${FILEDIR}/${FILE}.vcf
+# Convert chromosome accessions to numbers
+${PIPE}/accession-to-chr.sh -i ${FILEDIR}/${FILE}.vcf
+
+
+
+# =============================================================================
+# PLINK
+# =============================================================================
+
+# Make BED file
+${PLINK}/plink --vcf ${FILEDIR}/${FILE}.vcf \
+  --allow-no-sex \
+  --allow-extra-chr \
+  --geno 0.05 \
+  --bp-space 1000 \
+  --chr-set 16 \
+  --chr 1-16 \
+  --set-missing-snp-ids @:#[Amel4-5] \
+  --out ${DUMP}/vcfs/plink/${FILE} \
+  --make-bed
+
+# Before running ADMIXTURE first remove SNPs in high LD
+${PLINK}/plink --bfile ${DUMP}/vcfs/plink/${FILE} \
+  --allow-no-sex \
+  --allow-extra-chr \
+  --chr-set 16 \
+  --chr 1-16 \
+  --set-missing-snp-ids @:#[Amel4-5] \
+  --out ${DUMP}/vcfs/plink/${FILE} \
+  --indep-pairwise 50 10 0.1
+${PLINK}/plink --bfile ${DUMP}/vcfs/plink/${FILE} \
+  --allow-no-sex \
+  --allow-extra-chr \
+  --geno 0.05 \
+  --maf 0.1 \
+  --chr-set 16 \
+  --chr 1-16 \
+  --set-missing-snp-ids @:#[Amel4-5] \
+  --out ${DUMP}/vcfs/plink/${FILE}-prune \
+  --extract ${DUMP}/vcfs/plink/${FILE}.prune.in \
+  --bp-space 5000 \
+  --make-bed
+# bp-space retains only 1 SNP from a pair closer than the given bp
+# (Harpur et al used 25K random SNPs at least 5 kb apart)
+# (Wallberg used all 8M)
+
+# Check fraction missing per sample (update to check before or after pruning)
+${PLINK}/plink --bfile ${DUMP}/vcfs/plink/${FILE}-prune \
+  --allow-no-sex \
+  --allow-extra-chr \
+  --chr-set 16 \
+  --chr 1-16 \
+  --set-missing-snp-ids @:#[Amel4-5] \
+  --out ${DUMP}/vcfs/plink/${FILE} \
+  --missing
+
+
+# =============================================================================
+# ADMIXTURE
+# =============================================================================
+
+# Runs ADMIXTURE for several K values (1 to K)
+# The lowest cross validation (CV) error rate is the optimal K
+# Input format is plink
+# ADMIXTURE outputs file for:
+#  Q (ancestry fractions)
+#  P (allele frequencies of inferred ancestral populations)
+S=1 # Min K
+K=8 # Max K
+N=1 # Number of bootstraps
+# Check the -i file is correct (pruned or not) before running
+qsub -q unlimitq -l mem=4G -l h_vmem=48G -pe parallel_smp 4 \
+    -o ${DUMP}/logs \
+    -e ${DUMP}/logs \
+    ${PIPE}/admixture.sh -i ${DUMP}/vcfs/plink/${FILE}-prune \
+      -s ${S} -k ${K} -n ${N} -o ${DUMP}/vcfs/admixture
+# Identify optimal K
+grep -h CV ${DUMP}/vcfs/admixture/admixture-CV-*.out
+# Copy fam file to same folder incase needed for plotting
+cp ${DUMP}/vcfs/plink/${FILE}-prune.fam ${DUMP}/vcfs/admixture
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FILE="test"
+sed -i '/^#CHROM/s/_/-/g' ${DUMP}/vcfs/plink/O_beagle.vcf
+${PIPE}/accession-to-chr.sh -i ${DUMP}/vcfs/plink/O_beagle.vcf
+
+# Missingness
+${PLINK}/plink --vcf ${DUMP}/vcfs/plink/O_beagle.vcf \
+  --allow-no-sex \
+  --allow-extra-chr \
+  --chr-set 16 \
+  --chr 1-16 \
+  --set-missing-snp-ids @:#[Amel4-5] \
+  --out ${DUMP}/vcfs/plink/${FILE} \
+  --missing
+
+# BED
+${PLINK}/plink --vcf ${DUMP}/vcfs/plink/O_beagle.vcf \
+  --allow-no-sex \
+  --allow-extra-chr \
+  --hwe 5e-02 \
+  --geno 0.05 \
+  --bp-space 1000 \
+  --chr-set 16 \
+  --chr 1-16 \
+  --set-missing-snp-ids @:#[Amel4-5] \
+  --out ${DUMP}/vcfs/plink/${FILE} \
+  --make-bed
+
+# Admixture
+S=1 # Min K
+K=4 # Max K
+N=1 # Number of bootstraps
+# Check the -i file is correct (pruned or not) before running
+qsub -q unlimitq -l mem=4G -l h_vmem=48G -pe parallel_smp 4 \
+    -o ${DUMP}/logs \
+    -e ${DUMP}/logs \
+    ${PIPE}/admixture.sh -i ${DUMP}/vcfs/plink/${FILE} \
+      -s ${S} -k ${K} -n ${N} -o ${DUMP}/vcfs/admixture
+# Identify optimal K
+grep -h CV ${DUMP}/vcfs/admixture/admixture-CV-*.out
+# Copy fam file to same folder incase needed for plotting
+cp ${DUMP}/vcfs/plink/${FILE}.fam ${DUMP}/vcfs/admixture
+
+
+
+
+
+

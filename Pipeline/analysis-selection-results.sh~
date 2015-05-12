@@ -1,0 +1,49 @@
+#!/bin/bash
+# IEKNGHER1ujm
+
+# Set-up
+module load bioinfo/bcftools
+module load bioinfo/Java7 
+BEDT="/usr/local/bioinfo/src/bedtools/bedtools2-2.20.1/bin"
+VEP="/usr/local/bioinfo/src/ensembl-api/current/ensembl-tools-release-76/scripts/variant_effect_predictor"
+
+# Data
+DUMP="/home/dwragg/work/Analysis"
+PIPE="/home/dwragg/work/Pipeline"
+VCF="${DUMP}/VEP/JFMOTH-all.vcf.gz"
+
+# Results
+BEDS=(${DUMP}/selection/results/raw/*.bed)
+
+# Concatenate individual bed files together
+cat ${BEDS[@]} > ${DUMP}/selection/results/hits.bed
+
+# Sort the concatenated file
+sort -k 1,1 -k2,2n ${DUMP}/selection/results/hits.bed \
+  > ${DUMP}/selection/results/hits-srt.bed
+
+# Merge overlapping features
+${BEDT}/mergeBed -d 100 -c 1,4,5,5 -o count,collapse,min,max \
+  -i ${DUMP}/selection/results/hits-srt.bed \
+  > ${DUMP}/selection/results/hits-merged.bed
+
+
+
+# Reduce to regions identified from selection analyses
+bcftools view --types snps -M 2 -O v \
+  -R ${DUMP}/selection/results/hits-merged.bed \
+  -o ${DUMP}/VEP/selection-hits.vcf \
+  ${VCF}
+
+# VEP on the results
+mkdir -p ${DUMP}/logs/VEP-selection
+qsub -q unlimitq -l mem=4G -l h_vmem=16G -pe parallel_smp 1 \
+    -o ${DUMP}/logs/VEP-selection \
+    -e ${DUMP}/logs/VEP-selection \
+    ${PIPE}/vep.sh \
+      -i ${DUMP}/VEP/selection-hits.vcf \
+      -o ${DUMP}/VEP/selection-hits.vcf
+
+
+
+# Retrieve GO terms from Biomart by passing list of gene IDs returned from VEP

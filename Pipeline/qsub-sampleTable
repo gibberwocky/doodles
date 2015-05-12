@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Paths
+DUMP="/home/dwragg/work/tmp"
+PIPE="/home/dwragg/work/Pipeline"
+
+# JFM
+ID="1"
+POP1="JFM"
+POP1_VCFS=(${DUMP}/*/vcfs/${POP1}*clean.vcf.gz)
+POP1_BAMS=(${DUMP}/*/${POP1}*.bam)
+POP1=$(printf '%0.s${ID}\n' $(seq 1 ${#POP1_VCFS[@]}))
+
+# FL-NM
+ID="2"
+POP="FL"
+VCFS1=(/home/dwragg/work/tmp/*/vcfs/${POP}*clean.vcf.gz)
+BAMS1=(${DUMP}/*/${POP}*.bam)
+POP="NM"
+VCFS2=(/home/dwragg/work/tmp/*/vcfs/${POP}*clean.vcf.gz)
+BAMS2=(${DUMP}/*/${POP}*.bam)
+POP2_VCFS=( ${VCFS1[@]} ${VCFS2[@]} )
+POP2_BAMS=( ${BAMS1[@]} ${BAMS2[@]} )
+POP2=$(printf '%0.s${ID}\n' $(seq 1 ${#POP2_VCFS[@]}))
+
+# Merge data for each population
+VCFS=( ${POP1_VCFS[@]} ${POP2_VCFS[@]} )
+BAMS=( ${POP1_BAMS[@]} ${POP2_BAMS[@]} )
+POPS=( ${POP1[@]} ${POP2[@]} )
+
+# Write table to file
+FILE=${DUMP}/vcfs/test.samples
+for ((i=0;i<${#POPS[@]};i++));
+do
+  if [[ $i = 0 ]]
+    then printf "${POPS[$i]}\t${VCFS[$i]}\t${BAMS[$i]}\n" > "${FILE}"
+  fi
+  if [[ $i > 0 ]]
+    then printf "${POPS[$i]}\t${VCFS[$i]}\t${BAMS[$i]}\n" >> "${FILE}"
+  fi
+done
+
+
+
+
+
+

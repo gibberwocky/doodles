@@ -1,0 +1,3 @@
+INFO  06-08 12:53:31,316 (PGDSpiderConfig.java:loadConfig:63)  -load PGDSpider configuration from: /usr/local/bioinfo/src/PGDSspider/PGDSpider_2.0.6.0/spider.conf.xml
+DEBUG 06-08 12:53:31,362 (ParserFactory.java:getParserInstance:151)  -New PedParser instance
+DEBUG 06-08 12:53:31,386 (ParserFactory.java:getParserInstance:151)  -New PedParser instance

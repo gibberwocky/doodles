@@ -1,0 +1,56 @@
+#!/bin/bash
+#$ -M david.wragg@toulouse.inra.fr
+#$ -m a
+
+
+# ==============================================================================
+# ANGSD notes
+# ==============================================================================
+
+# Working directory
+DUMP="/home/dwragg/work/tmp"
+PIPE="/home/dwragg/work/Pipeline"
+
+
+# Output list of JFM population BAM files to file (JFM.bamlist)
+JFM=(${DUMP}/JFM*/*.bam)
+ls ${JFM[@]} > ${DUMP}/angsd/JFM.bamlist
+
+# Calculate allele frequencies
+# -GL 1			Calculate genotype likelihoods using SAMtools
+# -doMaf 2		Calculate fixed major unknown minor
+# -doMaf -1		Disable MAF output
+# -doMajorMinor 1	Determine MajorMinor from genotype likelihoods
+# -doGlf 2		Output Beagle genotype likelihoods
+# -SNP_pval 1e-6	(34k markers at this threshold on Group1.1 in JFM)
+# -SNP_pval 1e-3	(36K markers at this threshold on Group1.1 in JFM)
+# -SNP_pval 5e-2	(39K markers at this threshold on Group1.1 in JFM)
+#			(1.3M markers with no threshold on Group1.1 in JFM)
+
+angsd -b ${DUMP}/angsd/JFM.bamlist \
+  -GL 1 -doMajorMinor 1 -doMaf -1 \
+  -doGlf 2 \
+  -minMapQ 20 -minQ 10 \
+  -r Group1.1 \
+  -SNP_pval 5e-2 \
+  -out ${DUMP}/angsd/JFM
+
+# Afterwards the beagle.gz file can be used in Beagle
+BEAGLE="/usr/local/bioinfo/src/Beagle"
+java -d64 -jar ${BEAGLE}/beagle3.jar \
+  like=${DUMP}/angsd/JFM.beagle.gz \
+  out=${DUMP}/beagle/JFM
+#qsub -q workq -l mem=4G -l h_vmem=16G -pe parallel_smp 8 -o ${DUMP}/beagle/beagle.o -e   ${DUMP}/beagle/beagle.e ${PIPE}/angsd.sh
+
+
+# After this the beagle results can be used in ANGSD downstream analysis e.g.
+# Allele frequency estimation from beagle genotype probabilities
+angsd -beagle ${DUMP}/beagle/JFM.JFM.beagle.gz.gprobs.gz \
+  -doMaf 4 \
+  -r Group1.1 \
+  -fai /home/dwragg/save/Genomes/Amel_4.5_scaffolds.fa.fai \
+  -out ${DUMP}/angsd/JFM_MAF
+
+
+
+
