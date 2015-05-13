@@ -1,6 +1,8 @@
 #!/usr/bin/perl -w
 
-# Reads in a VCF file and replaces missing genotypes with most frequent allele
+# Summarizes some alignment and variant detection metrics
+# An earlier version, required modification due to changes in output from one
+# of the software tools used
 
 use strict;
 use warnings;

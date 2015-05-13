@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Reads in a VCF file and replaces missing genotypes with most frequent allele
+# Substitutes heterozygous genotypes with missing genotypes
 
 use strict;
 use warnings;

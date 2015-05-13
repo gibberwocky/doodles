@@ -1,7 +1,5 @@
 #!/usr/bin/perl -w
 
-# Reads in a VCF file and replaces missing genotypes with most frequent allele
-
 use strict;
 use warnings;
 use List::Util qw(first min max);
@@ -11,7 +9,7 @@ my $file =$ARGV[0];
 
 
 # ===========================================================================================
-# Read in VCF file (requires AC and AN fields), record allele counts and calculate Hp in bins
+# Read in VCF file (requires AC and AN fields), record allele counts and calculate Hp
 # ===========================================================================================
 
 # Hp sum variables

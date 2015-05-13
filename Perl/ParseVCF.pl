@@ -1,6 +1,7 @@
 #!/usr/bin/perl -w
 
 # Reads in a VCF file and extracts only homozygous variants
+# No longer necessary, BCFtools performs this task admirably with ^het
 
 use strict;
 use warnings;
@@ -38,6 +39,4 @@ exit;
 
 
 
-
-#perl /home/plxdw1/Dropbox/Perl/ParseVCF.pl /home/plxdw1/Downloads/Apis/JFM10_TAGCTT_L001/vcfs/JFM10_TAGCTT_L001_platypus_SNPs.vcf > test
 

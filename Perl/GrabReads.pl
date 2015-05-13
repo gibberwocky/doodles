@@ -30,5 +30,3 @@ exit;
 
 
 
-#perl /home/plxdw1/Dropbox/Perl/GrabReads.pl ${IN}/${SAMPLE[${sample_id}]}/${SAMPLE[${sample_id}]}_recal.bam ${OUT}/${SAMPLE[${sample_id}]}/Intervals/${tmp}/read.names
-

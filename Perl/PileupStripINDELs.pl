@@ -1,6 +1,7 @@
 #!/usr/bin/perl -w
 
 # Reads in a VCF file and extracts non-INDEL variants
+# No longer necessary, BCFtools performs this task admirably
 
 use strict;
 use warnings;
@@ -34,10 +35,4 @@ exit;
 
 
 
-
-
-
-
-
-#perl /home/plxdw1/Dropbox/Perl/PileupStripINDELs.pl 5677 JFM10_TAGCTT_L001_pileup_variants_hom.vcf
 

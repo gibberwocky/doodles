@@ -32,8 +32,3 @@ exit;
 
 
 
-
-
-
-#perl /home/plxdw1/Dropbox/Perl/InsertVCFcolnames.pl 5677 ${OUT}/${SAMPLE}/vcfs/${SAMPLE}_pileup_variants_SNPs_tmp.vcf JFM10_TAGCTT_L001 > ${OUT}/${SAMPLE}/vcfs/${SAMPLE}_pileup_variants_SNPs_hom.vcf
-
