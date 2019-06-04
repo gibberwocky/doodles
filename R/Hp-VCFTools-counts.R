@@ -2,6 +2,11 @@
 
 args <- commandArgs(T)
 
+## CAUTION
+## If working with pool-seq data, as Hp is intended, then allele counts as output from vcftools to do not account for allele depth. 
+## Allele depth will need to be extracted from the VCF AD field, or generated using another means such as samtools mpileup.
+
+
 ## Generate allele frequency counts
 ## vcftools --vcf S2-07112014-OTH.vcf --out S2-07112014-OTH --counts
 ## vcftools --vcf S2-07112014-JFM.vcf --out S2-07112014-JFM --counts
